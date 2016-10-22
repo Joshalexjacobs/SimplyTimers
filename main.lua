@@ -4,12 +4,14 @@ require "SimplyTimers"
 
 local index = 1
 local remaining = 0.0
+local max = 0
 local timers = {}
 
 function love:keypressed(key, code)
   if checkTimer("start", timers) == false then
     if key == "space" or key == "return" then
       addTimer(remaining, "start", timers)
+      max = remaining
     end
   end
 
@@ -17,7 +19,7 @@ function love:keypressed(key, code)
     love.event.quit()
   end
 
-  if checkTimer("start", timers) == false then
+  if checkTimer("start", timers) == false and remaining < 10 then
     if key == "1" then
       remaining = remaining * 10 + 0.01
     elseif key == "2" then
@@ -43,7 +45,10 @@ function love:keypressed(key, code)
 end
 
 function love.load(arg)
-
+  smallestFont = love.graphics.newFont("kenpixel_mini.ttf", 15)
+  smallFont = love.graphics.newFont("kenpixel_mini.ttf", 20)
+  bigFont = love.graphics.newFont("kenpixel_mini.ttf", 40)
+  love.graphics.setFont(bigFont)
 end
 
 function love.update(dt)
@@ -54,12 +59,24 @@ function love.update(dt)
 end
 
 function love.draw()
-  love.graphics.printf( string.format("%.2f", tostring(remaining)), 360, 350, 100 )
+  love.graphics.printf("Simply Timers", 0, 50, 800, "center")
+  love.graphics.printf( string.format("%.2f", tostring(remaining)), 350, 150, 500 )
 
   if checkTimer("start", timers) then
-    love.graphics.printf("Start Timer Active", 300, 400, 200)
+    love.graphics.printf("Timer Active", 0, 400, 800, "center")
+    love.graphics.setColor(100, 0, 0, 255)
+    love.graphics.rectangle("fill", 106, 206, remaining/max * 587, 19)
+    love.graphics.setColor(255, 255, 255, 255)
     remaining = getTime("start", timers)
   else
-    love.graphics.printf("Start Timer Inactive", 300, 400, 200)
+    love.graphics.printf("Timer Inactive", 0, 400, 800, "center")
   end
+
+  love.graphics.setFont(smallFont)
+  love.graphics.printf(string.format("%.2f" , tostring(max)), 640, 180, 200)
+  love.graphics.setFont(smallestFont)
+  love.graphics.printf("Use 0-9 to set the timer\nPress Space/Enter to start", 5, 5, 800, "left")
+  love.graphics.setFont(bigFont)
+
+  love.graphics.rectangle("line", 106, 206, 587, 19)
 end
