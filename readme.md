@@ -46,8 +46,10 @@ end
 ```
 
 #### TimerList
-The timerList is where your timers are stored. This means that each and every entity in your game can have their own timerList.
-The reason for this is so that we don't have to update every single timer in existence every tick. Now we only have to update the timers that are in use and only for whichever entities are using them.
+The timerList is where your timers will be stored. There's no limit to how many different timerLists you may have and how many timers are in each list.
+This means that each and every entity in our game can have their own timerList.
+
+This way we don't have to update every single timer created every tick. We only have to update the timers that are currently being used by active entities.
 
 ``` lua
 if entity.isDead and checkTimer("dead", entity.timers) == false then
@@ -62,7 +64,7 @@ end
 updateTimer(dt, name, timerList)
 ```
 
-The updateTimer function either returns true or false. If the return value is false that means the timer is still running and has yet to hit 0. If it returns true then the timer we're updating has just reached 0 and we can decide what we want to do with it from there.
+The updateTimer function either returns TRUE or FALSE. If the return value is false, then the timer has yet to hit 0. If the return value is true, then the timer we're updating has just reached 0 and is complete.
 
 ``` lua
 if updateTimer(dt, "dead", entity.timers) then
@@ -77,7 +79,7 @@ end
 deleteTimer(name, timerList)
 ```
 
-Deleting a timer only requires the timer's name and the list it's stored in. This removes the timer from the timerList which allows us to reuse it's name for a future timer if desired.
+Deleting a timer only requires the timer's name and the list it's stored in. This removes the timer from the timerList which allows us to reuse it's name for a future timer.
 
 ``` lua
 deleteTimer("shoot", entity.timers)
@@ -122,8 +124,9 @@ end
 ```
 
 ## Examples
+### Some examples of where SimplyTimers.lua can be used:
 
-The main.lua file in this git repo:
+####The main.lua file in this git repo:
 ``` lua
 require "SimplyTimers"
 
@@ -207,7 +210,7 @@ function love.draw()
 end
 ```
 
-An enemy update function:
+####An enemy update function:
 ``` lua
 behaviour = function(dt, entity, world)
   if entity.isDead == false then
@@ -231,7 +234,7 @@ behaviour = function(dt, entity, world)
 end,
 ```
 
-Part of an enemy bullets update function:
+####Part of an enemy bullets update function:
 ``` lua
 function updateEBullets(dt, world)
   for i, newEBullet in ipairs(eBullets) do
