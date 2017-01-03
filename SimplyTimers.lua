@@ -17,20 +17,20 @@ local function copy(obj, seen)
   return res
 end
 
--- need to build a fail safe for this, if timer already exists, fail timer creation
-function addTimer(startTime, name, timerList)
-  local newTimer = copy(timer, newTimer)
-  newTimer.time, newTimer.label = startTime, name
-
-  table.insert(timerList, newTimer)
-end
-
 local function findTimer(name, timerList)
   for i = 1, #timerList do
     if timerList[i].label == name then return i end
   end
 
-  return 0
+  return 0 -- timer not found
+end
+
+-- need to build a fail safe for this, if timer already exists, fail timer creation
+function addTimer(time, name, timerList)
+  local newTimer = copy(timer, newTimer)
+  newTimer.time, newTimer.label = time, name
+
+  table.insert(timerList, newTimer)
 end
 
 function checkTimer(name, timerList)
@@ -50,8 +50,8 @@ function getTime(name, timerList)
   end
 end
 
-function resetTimer(startTime, name, timerList)
-  timerList[findTimer(name, timerList)].time = startTime
+function resetTimer(time, name, timerList)
+  timerList[findTimer(name, timerList)].time = time
 end
 
 function updateTimer(dt, name, timerList) -- update all existing timers
