@@ -19,7 +19,7 @@ addTimer(time, name, timerList)
 The addTimer function asks for a time (in seconds), a name (string), and a timerList (a list of timers).
 
 #### Time
-- Time is passed in seconds and NOT milliseconds, but will take fractions of a second.
+Time is passed in seconds and NOT milliseconds, but will take fractions of a second.
 
 ``` lua
 -- 500 milliseconds
@@ -33,7 +33,7 @@ addTimer(2.0, name, timerList)
 ```
 
 #### Name
-- The Name parameter is stored with the timer and acts as a label. Whenever you want to access that timer again you need to use it's name to call it.
+The Name parameter is stored with the timer and acts as a label. Whenever you want to access that timer again you need to use it's name to call it.
 
 ``` lua
 -- add a timer with the name "shoot"
@@ -46,7 +46,7 @@ end
 ```
 
 #### TimerList
-- The timerList is where your timers are stored. This means that each and every entity in your game can have their own timerList.
+The timerList is where your timers are stored. This means that each and every entity in your game can have their own timerList.
 The reason for this is so that we don't have to update every single timer in existence every tick. Now we only have to update the timers that are in use and only for whichever entities are using them.
 
 ``` lua
