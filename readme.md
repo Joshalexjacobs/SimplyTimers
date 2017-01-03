@@ -118,7 +118,7 @@ checkTimer(name, timerList)
 If you need to check whether a timer exists in the given timerList you can us the checkTimer function.
 
 ``` lua
-if checkTimer("chase", entity.timers) then
+if checkTimer("chase", entity.timers) == false then
   addTimer(1.5, "chase", entity.timers)
 end
 ```
