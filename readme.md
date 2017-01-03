@@ -21,7 +21,6 @@ The addTimer function asks for a time (in seconds), a name (string), and a timer
 #### Time
 - Time is passed in seconds and NOT milliseconds, but will take fractions of a second.
 
-eg:
 ``` lua
 -- 500 milliseconds
 addTimer(0.5, name, timerList)
@@ -36,7 +35,6 @@ addTimer(2.0, name, timerList)
 #### Name
 - The Name parameter is stored with the timer and acts as a label. Whenever you want to access that timer again you need to use it's name to call it.
 
-eg:
 ``` lua
 -- add a timer with the name "shoot"
 addTimer(0.7, "shoot", timerList)
@@ -51,7 +49,6 @@ end
 - The timerList is where your timers are stored. This means that each and every entity in your game can have their own timerList.
 The reason for this is so that we don't have to update every single timer in existence every tick. Now we only have to update the timers that are in use and only for whichever entities are using them.
 
-eg:
 ``` lua
 if entity.isDead and checkTimer("dead", entity.timers) == false then
   addTimer(0.6, "dead", entity.timers)
@@ -67,7 +64,6 @@ updateTimer(dt, name, timerList)
 
 The updateTimer function either returns true or false. If the return value is false that means the timer is still running and has yet to hit 0. If it returns true then the timer we're updating has just reached 0 and we can decide what we want to do with it from there.
 
-eg:
 ``` lua
 if updateTimer(dt, "dead", entity.timers) then
   -- our death animation has finished
@@ -83,7 +79,6 @@ deleteTimer(name, timerList)
 
 Deleting a timer only requires the timer's name and the list it's stored in. This removes the timer from the timerList which allows us to reuse it's name for a future timer if desired.
 
-eg:
 ``` lua
 deleteTimer("shoot", entity.timers)
 ```
@@ -96,7 +91,6 @@ resetTimer(time, name, timerList)
 
 Reseting a timer is almost identical to adding a timer.
 
-eg:
 ``` lua
 resetTimer(0.2, "shoot", entity.timers)
 ```
@@ -109,7 +103,6 @@ getTime(name, timerList)
 
 If needed, you can access a timer's current time. The return value will be in seconds.
 
-eg:
 ``` lua
 getTime("follow", entity.timers)
 ```
@@ -122,7 +115,6 @@ checkTimer(name, timerList)
 
 If you need to check whether a timer exists in the given timerList you can us the checkTimer function.
 
-eg:
 ``` lua
 if checkTimer("chase", entity.timers) then
   addTimer(1.5, "chase", entity.timers)
